@@ -17,7 +17,8 @@ import java.util.ArrayList;
  */
 public class LyPlayer
 {
-    
+    private boolean leftP;
+    private boolean rightP;
     private int WIDTH;
     private int HEIGHT;
     private int xC;
@@ -92,7 +93,7 @@ public class LyPlayer
     // Setters
     public void setxC(int x)
     {
-        xC = x;
+        xC += x;
     }
     public void setyC(int y)
     {
@@ -147,11 +148,11 @@ public class LyPlayer
     // Movement
     public void left()
     {
-        if (xC > 610) xC -= 20;
+        if (xC > 610) leftP = true;
     }
     public void right()
     {
-        if (xC < 1425) xC += 20;
+        if (xC < 1425) rightP = true;
     }
     public void down()
     {
@@ -161,7 +162,18 @@ public class LyPlayer
     {
         if (yC < 725)yC += 20;
     }
-
+    public void keyReleased(KeyEvent e)
+    {
+        int key = e.getKeyCode();
+        if (key == 39)
+        {
+            rightP = false;
+        }
+        else if(key == 37)
+        {
+            leftP = false;
+        }
+    }
     public void keyPressed(KeyEvent e, LyMeat meat, LyBuns buns)
     {
         //getting the key pressed

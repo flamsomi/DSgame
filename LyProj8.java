@@ -22,7 +22,8 @@ public class LyProj8 extends JComponent implements KeyListener, MouseListener, M
     
     private LyPlayer player;
     private LyItem item;
-
+    private boolean leftP;
+    private boolean rightP;
     private int screen;
     private boolean gameOver;
 
@@ -52,6 +53,8 @@ public class LyProj8 extends JComponent implements KeyListener, MouseListener, M
         textPoints = "";
         inventoryText = "";
         burger = new LyItem();
+        leftP = false;
+        rightP = false;
 
         //Setting up the GUI
         JFrame gui = new JFrame(); //This makes the gui box
@@ -82,6 +85,16 @@ public class LyProj8 extends JComponent implements KeyListener, MouseListener, M
         if(key == 10 && screen < 3)
         {
             screen++;
+        }
+    
+        //moving the rectangle
+        if(key == 39 || key == 68)
+        {
+            rightP = true;
+        }
+        else if(key == 37 || key == 65)
+        {
+            leftP = true;
         }
         
     }
@@ -181,11 +194,15 @@ public class LyProj8 extends JComponent implements KeyListener, MouseListener, M
     }
     public void loop()
     {
-        //Do not write below this
-        repaint();
+        
         text = player.getText();
         textPoints = player.getTextPoints();
         inventoryText = player.getInventory();
+        if(leftP) player.setxC(-5);
+        else if(rightP) player.setxC(5);
+
+        //Do not write below this
+        repaint();
     }
     public double distance(int x1, int y1, int x2, int y2)
     {
@@ -208,7 +225,15 @@ public class LyProj8 extends JComponent implements KeyListener, MouseListener, M
     }
     public void keyReleased(KeyEvent e)
     {
-        
+        int key = e.getKeyCode();
+        if (key == 39)
+        {
+            rightP = false;
+        }
+        else if(key == 37)
+        {
+            leftP = false;
+        }
     }
     public void mousePressed(MouseEvent e)
     {
